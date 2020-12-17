@@ -9,7 +9,7 @@ using System.Web.Routing;
 
 namespace AuthService
 {
-    public class WebApiApplication : System.Web.HttpApplication
+    public class Gloabal : System.Web.HttpApplication
     {
         protected void Application_Start()
         {

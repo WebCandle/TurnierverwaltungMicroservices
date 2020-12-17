@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.1062
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppGateway", "APIGetway\AppGateway.csproj", "{7A387DDE-041F-4D36-97FA-65A6AFD5E089}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthService", "AuthService\AuthService.csproj", "{63358647-A318-41DC-B30E-4431D176A4E7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonService", "PersonService\PersonService.csproj", "{4DE69766-267B-4C00-B208-1011552F8329}"
@@ -13,16 +11,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MannschaftService", "Mannsc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageBroker", "MessageBroker\MessageBroker.csproj", "{12D50B04-EEDD-4A94-ADB2-C1472FBC0147}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppGateway", "AppGateway\AppGateway.csproj", "{FFE380F4-05A3-4426-9388-4D57BB69CD29}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7A387DDE-041F-4D36-97FA-65A6AFD5E089}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7A387DDE-041F-4D36-97FA-65A6AFD5E089}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7A387DDE-041F-4D36-97FA-65A6AFD5E089}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7A387DDE-041F-4D36-97FA-65A6AFD5E089}.Release|Any CPU.Build.0 = Release|Any CPU
 		{63358647-A318-41DC-B30E-4431D176A4E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{63358647-A318-41DC-B30E-4431D176A4E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63358647-A318-41DC-B30E-4431D176A4E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,6 +35,10 @@ Global
 		{12D50B04-EEDD-4A94-ADB2-C1472FBC0147}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12D50B04-EEDD-4A94-ADB2-C1472FBC0147}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12D50B04-EEDD-4A94-ADB2-C1472FBC0147}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFE380F4-05A3-4426-9388-4D57BB69CD29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFE380F4-05A3-4426-9388-4D57BB69CD29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFE380F4-05A3-4426-9388-4D57BB69CD29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFE380F4-05A3-4426-9388-4D57BB69CD29}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

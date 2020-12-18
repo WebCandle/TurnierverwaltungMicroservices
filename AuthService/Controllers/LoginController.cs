@@ -10,10 +10,10 @@ namespace AuthService.Controllers
     public class LoginController : ApiController
     {
         // GET: api/Login
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+        //public IEnumerable<string> Get()
+        //{
+        //    return new string[] { "value1", "value2" };
+        //}
 
         // GET: api/Login/5
         public LoginModel Get(int id)
@@ -23,13 +23,15 @@ namespace AuthService.Controllers
 
         // POST: api/Login
         [HttpPost]
-        [Route("api/Login")]
+        [Route("api/login")]
         public IHttpActionResult Post([FromBody] LoginModel model)
         {
-            if(model.UserName == "user" && model.Password == "user")
+            if( model is null)
             {
-                model.ID = 5;
-                model.Rolle = "USER";
+                return InternalServerError();
+            }
+            else if(Global.Controller.Login_Authenticate(ref model))
+            {
                 return Ok(model);
             }
             else
@@ -39,13 +41,13 @@ namespace AuthService.Controllers
         }
 
         // PUT: api/Login/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
+        //public void Put(int id, [FromBody]string value)
+        //{
+        //}
 
         // DELETE: api/Login/5
-        public void Delete(int id)
-        {
-        }
+        //public void Delete(int id)
+        //{
+        //}
     }
 }

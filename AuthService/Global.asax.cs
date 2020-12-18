@@ -6,11 +6,13 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using AuthService.Controllers;
 
 namespace AuthService
 {
-    public class Gloabal : System.Web.HttpApplication
+    public class Global : System.Web.HttpApplication
     {
+        public static MainController Controller;
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -18,6 +20,8 @@ namespace AuthService
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            Controller = new MainController("server=localhost;database=Turnierverwaltung_db;uid=root;password=");
         }
     }
 }

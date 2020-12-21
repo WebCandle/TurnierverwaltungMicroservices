@@ -1,6 +1,0 @@
-namespace AuthService.Areas.HelpPage.ModelDescriptions
-{
-    public class SimpleTypeModelDescription : ModelDescription
-    {
-    }
-}

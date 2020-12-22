@@ -2,16 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Serialization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace PersonService
 {
@@ -27,35 +26,22 @@ namespace PersonService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(o =>
+            {
+                o.Authority = "https://localhost:44373";
+                o.Audience = "myresourceapi";
+                o.RequireHttpsMetadata = false;
+            });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("person.read", policy => policy.RequireClaim("client_id", "secret_client_id"));
+            });
             services.AddControllers();
-            services.AddMvcCore().AddAuthorization().AddNewtonsoftJson(o =>
-            {
-                o.SerializerSettings.Converters.Add(new StringEnumConverter());
-                o.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-            });
-
-            //services.AddAuthentication("Bearer")
-            //    .AddIdentityServerAuthentication(options =>
-            //        {
-            //            options.Authority = "http://localhost:5001";
-            //            options.RequireHttpsMetadata = false;
-            //            options.ApiName = "AuthAPI";
-            //        });
-
-            services.AddAuthentication(option =>
-            {
-                option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer( op =>
-            {
-                op.Authority = "http://localhost:5001";
-                op.Audience = "apiresource";
-                op.RequireHttpsMetadata = false;
-            });
-            services.AddAuthorization(op =>
-            {
-                op.AddPolicy("PublicSecure", policy => policy.RequireClaim("client_id", "user"));
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,9 +52,16 @@ namespace PersonService
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseAuthentication();
+            app.UseHttpsRedirection();
+
+            app.UseRouting();
+
             app.UseAuthorization();
-            
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         }
     }
 }

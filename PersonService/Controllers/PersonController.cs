@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,6 +13,8 @@ namespace PersonService.Controllers
     public class PersonController : ControllerBase
     {
         // GET: api/Person
+        //[Authorize(Policy = "person.read")]
+        [Authorize]
         [HttpGet]
         public IEnumerable<string> Get()
         {

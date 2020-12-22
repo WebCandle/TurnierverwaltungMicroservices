@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace AuthService
+namespace IdentityService
 {
     public class Startup
     {
@@ -17,16 +17,14 @@ namespace AuthService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddIdentityServer()
-                .AddDeveloperSigningCredential()
-                .AddOperationalStore( op =>
-                {
-                    op.EnableTokenCleanup = true;
-                    op.TokenCleanupInterval = 60;
-                }
-                )
-                .AddInMemoryApiResources(Config.GetApiResources())
-                .AddInMemoryClients(Config.GetClients())
-                .AddInMemoryApiScopes(Config.GetScopes());
+ .AddDeveloperSigningCredential()
+ .AddOperationalStore(options =>
+ {
+     options.EnableTokenCleanup = true;
+     options.TokenCleanupInterval = 30; // interval in seconds
+ })
+ .AddInMemoryApiResources(Config.GetApiResources())
+ .AddInMemoryClients(Config.GetClients());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,19 +35,16 @@ namespace AuthService
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseIdentityServer();
             app.UseRouting();
 
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapGet("/", async context =>
-            //    {
-            //        await context.Response.WriteAsync("Hello World!");
-            //    });
-            //});
-
-            app.UseIdentityServer();
-            //app.UseAuthentication();
-
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapGet("/", async context =>
+                {
+                    await context.Response.WriteAsync("Hello World!");
+                });
+            });
         }
     }
 }

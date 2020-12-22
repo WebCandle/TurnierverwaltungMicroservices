@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -33,13 +34,28 @@ namespace PersonService
                 o.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             });
 
-            services.AddAuthentication("Bearer")
-                .AddIdentityServerAuthentication(options =>
-                    {
-                        options.Authority = "http://localhost:5001";
-                        options.RequireHttpsMetadata = false;
-                        options.ApiName = "AuthAPI";
-                    });
+            //services.AddAuthentication("Bearer")
+            //    .AddIdentityServerAuthentication(options =>
+            //        {
+            //            options.Authority = "http://localhost:5001";
+            //            options.RequireHttpsMetadata = false;
+            //            options.ApiName = "AuthAPI";
+            //        });
+
+            services.AddAuthentication(option =>
+            {
+                option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer( op =>
+            {
+                op.Authority = "http://localhost:5001";
+                op.Audience = "apiresource";
+                op.RequireHttpsMetadata = false;
+            });
+            services.AddAuthorization(op =>
+            {
+                op.AddPolicy("PublicSecure", policy => policy.RequireClaim("client_id", "user"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

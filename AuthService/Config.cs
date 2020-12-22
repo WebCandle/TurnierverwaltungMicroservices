@@ -14,15 +14,14 @@ namespace AuthService
                 {
                     new ApiScope
                         {
-                            Name = "AuthAPI",
-                            Emphasize=true,
+                            Name = "apiscope"
                         }
                 };
         }
         public static IEnumerable<ApiResource> GetApiResources()
         {
             return new List<ApiResource> {
-                new ApiResource("AuthAPI", "Turnierverwaltung AuthService")
+                new ApiResource("apiresource")
             };
         }
         public static IEnumerable<Client> GetClients()
@@ -42,7 +41,7 @@ namespace AuthService
                 },
 
                 // scopes that client has access to
-                AllowedScopes = { "AuthAPI" }
+                AllowedScopes = { "apiscope" }
             }
         };
         }

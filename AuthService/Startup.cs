@@ -16,8 +16,14 @@ namespace AuthService
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddIdentityServer().AddDeveloperSigningCredential()
+            services.AddIdentityServer()
                 .AddDeveloperSigningCredential()
+                .AddOperationalStore( op =>
+                {
+                    op.EnableTokenCleanup = true;
+                    op.TokenCleanupInterval = 60;
+                }
+                )
                 .AddInMemoryApiResources(Config.GetApiResources())
                 .AddInMemoryClients(Config.GetClients())
                 .AddInMemoryApiScopes(Config.GetScopes());
@@ -31,7 +37,7 @@ namespace AuthService
                 app.UseDeveloperExceptionPage();
             }
 
-            //app.UseRouting();
+            app.UseRouting();
 
             //app.UseEndpoints(endpoints =>
             //{

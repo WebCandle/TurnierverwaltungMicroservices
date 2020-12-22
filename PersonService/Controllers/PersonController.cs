@@ -10,7 +10,7 @@ namespace PersonService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize(Policy = "PublicSecure")]
     public class PersonController : ControllerBase
     {
         // GET: api/Person

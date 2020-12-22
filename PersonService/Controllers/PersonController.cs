@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,7 +9,6 @@ namespace PersonService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Policy = "PublicSecure")]
     public class PersonController : ControllerBase
     {
         // GET: api/Person

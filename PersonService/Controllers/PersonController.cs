@@ -13,8 +13,8 @@ namespace PersonService.Controllers
     public class PersonController : ControllerBase
     {
         // GET: api/Person
-        //[Authorize(Policy = "person.read")]
-        [Authorize]
+        [Authorize(Policy = "person.read")]
+        //[Authorize]
         [HttpGet]
         public IEnumerable<string> Get()
         {

@@ -37,10 +37,11 @@ namespace PersonService
                 o.RequireHttpsMetadata = false;
             });
 
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("person.read", policy => policy.RequireClaim("client_id", "secret_client_id"));
-            });
+            //services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy("person.read", policy => policy.RequireClaim("client_id", "secret_client_id"));
+            //});
+            services.AddAuthorization();
             services.AddControllers();
         }
 
@@ -56,6 +57,7 @@ namespace PersonService
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

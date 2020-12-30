@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIGateway", "APIGateway\APIGateway.csproj", "{AF04E6FD-3BDA-48CB-88A5-BD6B1B181A47}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MannschaftService", "MannschaftService\MannschaftService.csproj", "{C9F477B9-98AA-4F27-BB37-6145F1F29A54}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityService", "IdentityService\IdentityService.csproj", "{C9933F83-4502-4787-8468-9EC482673246}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService", "IdentityService\IdentityService.csproj", "{C9933F83-4502-4787-8468-9EC482673246}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonService", "PersonService\PersonService.csproj", "{AAD5DFA3-E94C-4ABC-9D85-8071287E4EF8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonService", "PersonService\PersonService.csproj", "{AAD5DFA3-E94C-4ABC-9D85-8071287E4EF8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIGateway", "APIGateway\APIGateway.csproj", "{ADA170D1-DB9B-4AA5-AC88-7E5970C17288}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{AF04E6FD-3BDA-48CB-88A5-BD6B1B181A47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AF04E6FD-3BDA-48CB-88A5-BD6B1B181A47}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AF04E6FD-3BDA-48CB-88A5-BD6B1B181A47}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AF04E6FD-3BDA-48CB-88A5-BD6B1B181A47}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C9F477B9-98AA-4F27-BB37-6145F1F29A54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C9F477B9-98AA-4F27-BB37-6145F1F29A54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9F477B9-98AA-4F27-BB37-6145F1F29A54}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +29,10 @@ Global
 		{AAD5DFA3-E94C-4ABC-9D85-8071287E4EF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AAD5DFA3-E94C-4ABC-9D85-8071287E4EF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AAD5DFA3-E94C-4ABC-9D85-8071287E4EF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADA170D1-DB9B-4AA5-AC88-7E5970C17288}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADA170D1-DB9B-4AA5-AC88-7E5970C17288}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADA170D1-DB9B-4AA5-AC88-7E5970C17288}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADA170D1-DB9B-4AA5-AC88-7E5970C17288}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

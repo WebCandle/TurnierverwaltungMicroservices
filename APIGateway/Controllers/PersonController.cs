@@ -1,10 +1,12 @@
-﻿using MassTransit;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using APIGateway.Models;
+using RabbitMQ.Client;
+using System.Text;
+using Newtonsoft.Json;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,12 +16,6 @@ namespace APIGateway.Controllers
     [ApiController]
     public class PersonController : ControllerBase
     {
-        readonly IPublishEndpoint _publishEndpoint;
-
-        public PersonController(IPublishEndpoint publishEndpoint)
-        {
-            _publishEndpoint = publishEndpoint;
-        }
 
         // GET: api/<PersonController>
         [HttpGet]
@@ -37,13 +33,26 @@ namespace APIGateway.Controllers
 
         // POST api/<PersonController>
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] Person model)
+        public IActionResult Post([FromBody] Person model)
         {
-            await _publishEndpoint.Publish<Person>(new
+            var factory = new ConnectionFactory() { HostName = "localhost" };
+            using (var connection = factory.CreateConnection())
+            using (var channel = connection.CreateModel())
             {
-                Value = model
-            });
+                channel.QueueDeclare(queue: "person.queue",
+                                     durable: false,
+                                     exclusive: false,
+                                     autoDelete: false,
+                                     arguments: null);
 
+                string message = JsonConvert.SerializeObject(model);
+                var body = Encoding.UTF8.GetBytes(message);
+
+                channel.BasicPublish(exchange: "",
+                                     routingKey: "person.queue",
+                                     basicProperties: null,
+                                     body: body);
+            }
             return Ok();
         }
 

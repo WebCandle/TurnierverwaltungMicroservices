@@ -26,22 +26,9 @@ namespace PersonService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(o =>
-            {
-                o.Authority = "https://localhost:44373";
-                o.Audience = "myresourceapi";
-                o.RequireHttpsMetadata = false;
-            });
 
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("person.read", policy => policy.RequireClaim("client_id", "secret_client_id"));
-            });
-            //services.AddAuthorization();
+            services.AddHostedService<PersonReceiver>();
+
             services.AddControllers();
         }
 
@@ -56,9 +43,6 @@ namespace PersonService
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
-            app.UseAuthentication();
-            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

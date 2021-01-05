@@ -7,6 +7,7 @@ using APIGateway.Models;
 using RabbitMQ.Client;
 using System.Text;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -16,7 +17,7 @@ namespace APIGateway.Controllers
     [ApiController]
     public class PersonController : ControllerBase
     {
-
+        [Authorize(Policy = "person.read")]
         // GET: api/<PersonController>
         [HttpGet]
         public IEnumerable<string> Get()
@@ -31,6 +32,7 @@ namespace APIGateway.Controllers
             return "value";
         }
 
+        [Authorize(Policy = "person.write")]
         // POST api/<PersonController>
         [HttpPost]
         public IActionResult Post([FromBody] Person model)
@@ -44,8 +46,9 @@ namespace APIGateway.Controllers
                                      exclusive: false,
                                      autoDelete: false,
                                      arguments: null);
+                PersonMessage personMessage = new PersonMessage(model, "post");
 
-                string message = JsonConvert.SerializeObject(model);
+                string message = JsonConvert.SerializeObject(personMessage);
                 var body = Encoding.UTF8.GetBytes(message);
 
                 channel.BasicPublish(exchange: "",

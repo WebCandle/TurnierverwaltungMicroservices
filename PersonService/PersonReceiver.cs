@@ -63,9 +63,9 @@ namespace PersonService
             consumer.Received += (ch, ea) =>
             {
                 var content = Encoding.UTF8.GetString(ea.Body.ToArray());
-                var person = JsonConvert.DeserializeObject<Person>(content);
+                var personMessage = JsonConvert.DeserializeObject<PersonMessage>(content);
 
-                HandleMessage(person);
+                HandleMessage(personMessage);
 
                 _channel.BasicAck(ea.DeliveryTag, false);
             };
@@ -79,31 +79,36 @@ namespace PersonService
             return Task.CompletedTask;
         }
 
-        private void HandleMessage(Person person)
+        private void HandleMessage(PersonMessage personMessage)
         {
             //_person_receicver.Update(person);
-            var name = person.Name;
+            var name = personMessage.Person.Name;
             _logger.LogInformation(name);
         }
 
         private void OnConsumerCancelled(object sender, ConsumerEventArgs e)
         {
+            _logger.LogInformation("OnConsumerCancelled was executed!");
         }
 
         private void OnConsumerUnregistered(object sender, ConsumerEventArgs e)
         {
+            _logger.LogInformation("OnConsumerUnregistered was executed!");
         }
 
         private void OnConsumerRegistered(object sender, ConsumerEventArgs e)
         {
+            _logger.LogInformation("OnConsumerRegistered was executed!");
         }
 
         private void OnConsumerShutdown(object sender, ShutdownEventArgs e)
         {
+            _logger.LogInformation("OnConsumerShutdown was executed!");
         }
 
         private void RabbitMQ_ConnectionShutdown(object sender, ShutdownEventArgs e)
         {
+            _logger.LogInformation("RabbitMQ_ConnectionShutdown was executed!");
         }
 
         public override void Dispose()

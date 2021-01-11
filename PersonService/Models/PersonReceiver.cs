@@ -6,20 +6,16 @@ using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using Microsoft.Extensions.Options;
-using PersonService.Models;
 using Microsoft.Extensions.Logging;
+using Common;
 
 namespace PersonService
 {
-    public interface IPersonReceiver
-    {
-        void Update(Person person);
-    }
     public class PersonReceiver : BackgroundService
     {
         private IModel _channel;
         private IConnection _connection;
-        private readonly IPersonReceiver _person_receicver;
+        //private readonly IPersonReceiver _person_receicver;
         private readonly string _hostname;
         private readonly string _queueName;
         private readonly string _username;
@@ -63,7 +59,7 @@ namespace PersonService
             consumer.Received += (ch, ea) =>
             {
                 var content = Encoding.UTF8.GetString(ea.Body.ToArray());
-                var personMessage = JsonConvert.DeserializeObject<PersonMessage>(content);
+                IMessage personMessage = JsonConvert.DeserializeObject<IMessage>(content);
 
                 HandleMessage(personMessage);
 
@@ -79,11 +75,11 @@ namespace PersonService
             return Task.CompletedTask;
         }
 
-        private void HandleMessage(PersonMessage personMessage)
+        private void HandleMessage(IMessage Message)
         {
             //_person_receicver.Update(person);
-            var name = personMessage.Person.Name;
-            _logger.LogInformation(name);
+            PersonMessage personMessage = (PersonMessage)Message;
+            _logger.LogInformation(personMessage.Person.Nachname);
         }
 
         private void OnConsumerCancelled(object sender, ConsumerEventArgs e)

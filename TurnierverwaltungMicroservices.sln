@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService", "Identity
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonService", "PersonService\PersonService.csproj", "{AAD5DFA3-E94C-4ABC-9D85-8071287E4EF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIGateway", "APIGateway\APIGateway.csproj", "{ADA170D1-DB9B-4AA5-AC88-7E5970C17288}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIGateway", "APIGateway\APIGateway.csproj", "{ADA170D1-DB9B-4AA5-AC88-7E5970C17288}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{9A03E18B-AE14-40BA-B923-F8565B518935}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{ADA170D1-DB9B-4AA5-AC88-7E5970C17288}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADA170D1-DB9B-4AA5-AC88-7E5970C17288}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ADA170D1-DB9B-4AA5-AC88-7E5970C17288}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A03E18B-AE14-40BA-B923-F8565B518935}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A03E18B-AE14-40BA-B923-F8565B518935}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A03E18B-AE14-40BA-B923-F8565B518935}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A03E18B-AE14-40BA-B923-F8565B518935}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

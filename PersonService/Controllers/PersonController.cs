@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Common;
 
 namespace PersonService.Controllers
 {
@@ -26,13 +27,13 @@ namespace PersonService.Controllers
 
         // POST: api/Person
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] IPerson person)
         {
         }
 
         // PUT: api/Person/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, [FromBody] IPerson person)
         {
         }
 

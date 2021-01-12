@@ -14,5 +14,7 @@ namespace Common
         string  Nachname { get; set; }
         DateTime Geburtsdatum { get; set; }
         int MannschaftId { get; set; }
+
+        void Asign(IPerson person);
     }
 }

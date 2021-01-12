@@ -17,5 +17,11 @@ namespace Common
             MannschaftId = 0;
             Gehalt = 0;
         }
+
+        public override void Asign(IPerson person)
+        {
+            base.Asign(person);
+            Gehalt = (person as Trainer).Gehalt;
+        }
     }
 }

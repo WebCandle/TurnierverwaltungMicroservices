@@ -18,66 +18,128 @@ namespace PersonService.Controllers
             Db = new PersonDbContext();
         }
 
-        // GET: api/Person
+        // GET: api/Person/All/{MannschaftId}
         //[Authorize(Policy = "person.read")]
         //[Authorize]
         [HttpGet]
-        public IEnumerable<IPerson> GetAllPersonen()
+        [Route("All/{MannschaftId}")]
+        public IEnumerable<IPerson> GetAllPersonen(int MannschaftId)
         {
-            return Db.Personen.ToList();
+            return Db.Personen.Where(x=> x.MannschaftId == MannschaftId).ToList();
         }
 
-        // GET: api/Person/5
-        [HttpGet("{id}", Name = "Get")]
-        public IEnumerable<IPerson> GetByMannschaftId(int id)
+        // GET: api/Person/{PersonId}
+        [HttpGet("{PersonId}", Name = "Get")]
+        public IActionResult GetPerson(int PersonId)
         {
-            return Db.Personen.Where(x=> x.MannschaftId == id).ToList();
+            IPerson person = Db.Personen.Where(x=> x.PersonId == PersonId).First();
+            if(person == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(person);
+            }
         }
 
-        // POST: api/Person
+        // POST: api/Person/Spieler
         [HttpPost]
         [Route("Spieler")]
         public IActionResult AddSpieler([FromBody] Spieler spieler)
         {
-            return Ok();
+            if(spieler == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                Db.Personen.Add(spieler);
+                int state = Db.SaveChanges();
+                return Ok(state);
+            }
         }
 
-        // POST: api/Person
+        // POST: api/Person/Trainer
         [HttpPost]
         [Route("Trainer")]
         public IActionResult AddTrainer([FromBody] Trainer trainer)
         {
-            return Ok();
+            if (trainer == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                Db.Personen.Add(trainer);
+                int state = Db.SaveChanges();
+                return Ok(state);
+            }
         }
 
-        // PUT: api/Person/5
+        // PUT: api/Person/Spieler/5
         [HttpPut]
-        [Route("Spieler/{id}")]
-        public IActionResult EditSpieler(int id, [FromBody] Spieler spieler)
+        [Route("Spieler/{PersonId}")]
+        public IActionResult EditSpieler(int PersonId, [FromBody] Spieler spieler)
         {
-            return Ok();
+            if(spieler == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                IPerson person = Db.Personen.Where(x => x.PersonId == PersonId).First();
+                if(person == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    person.Asign(spieler);
+                    int state = Db.SaveChanges();
+                    return Ok(state);
+                }
+            }
         }
         [HttpPut]
-        [Route("Trainer/{id}")]
-        public IActionResult EditTrainer(int id, [FromBody] Trainer trainer)
+        [Route("Trainer/{PersonId}")]
+        public IActionResult EditTrainer(int PersonId, [FromBody] Trainer trainer)
         {
-            return Ok();
+            if (trainer == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                IPerson person = Db.Personen.Where(x => x.PersonId == PersonId).First();
+                if (person == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    person.Asign(trainer);
+                    int state = Db.SaveChanges();
+                    return Ok(state);
+                }
+            }
         }
 
         // DELETE: api/Person/5
-        [HttpDelete("{id}")]
-        public IActionResult DeletePerson(int id)
+        [HttpDelete("{PersonId}")]
+        public IActionResult DeletePerson(int PersonId)
         {
-            Person person = null;
-            if (person is Spieler)
+            IPerson person = Db.Personen.Where(x => x.PersonId == PersonId).First();
+            if (person == null)
             {
-                return Ok("Spieler");
+                return NotFound();
             }
-            else if (person is Trainer)
+            else
             {
-                return Ok("Trainer");
+                Db.Personen.Remove((Person)person);
+                int state = Db.SaveChanges();
+                return Ok(state);
             }
-            else return BadRequest();
         }
     }
 }

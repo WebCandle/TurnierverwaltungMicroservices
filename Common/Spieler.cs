@@ -17,5 +17,11 @@ namespace Common
             MannschaftId = 0;
             Aufgabe = string.Empty;
         }
+
+        public override void Asign(IPerson person)
+        {
+            base.Asign(person);
+            Aufgabe = (person as Spieler).Aufgabe;
+        }
     }
 }

@@ -16,5 +16,13 @@ namespace Common
         public DateTime Geburtsdatum { get; set; }
         public int MannschaftId { get; set; }
 
+        public virtual void Asign(IPerson person)
+        {
+            Name = person.Name;
+            Nachname = person.Nachname;
+            Nachname = person.Nachname;
+            Geburtsdatum = person.Geburtsdatum;
+            MannschaftId = person.MannschaftId;
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Common
@@ -13,6 +14,5 @@ namespace Common
         string  Nachname { get; set; }
         DateTime Geburtsdatum { get; set; }
         int MannschaftId { get; set; }
-        IMannschaft Mannschaft { get; set; }
     }
 }

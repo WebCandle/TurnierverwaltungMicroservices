@@ -15,22 +15,16 @@ namespace PersonService
     {
         private IModel _channel;
         private IConnection _connection;
-        //private readonly IPersonReceiver _person_receicver;
         private readonly string _hostname;
         private readonly string _queueName;
         private readonly string _username;
         private readonly string _password;
         private readonly ILogger _logger;
-
         public PersonReceiver(ILogger<PersonReceiver> logger)
         {
-            //_hostname = rabbitMqOptions.Value.Hostname;
             _hostname = "localhost";
-            //_queueName = rabbitMqOptions.Value.QueueName;
             _queueName = "person.queue";
-            //_username = rabbitMqOptions.Value.UserName;
             _username = "guest";
-            //_password = rabbitMqOptions.Value.Password;
             _password = "guest";
             _logger = logger;
             InitializeRabbitMqListener();
@@ -44,7 +38,6 @@ namespace PersonService
                 UserName = _username,
                 Password = _password
             };
-
             _connection = factory.CreateConnection();
             _connection.ConnectionShutdown += RabbitMQ_ConnectionShutdown;
             _channel = _connection.CreateModel();
@@ -54,7 +47,6 @@ namespace PersonService
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
             stoppingToken.ThrowIfCancellationRequested();
-            _logger.LogInformation("ExecuteAsync was executed!");
             var consumer = new EventingBasicConsumer(_channel);
             consumer.Received += (ch, ea) =>
             {

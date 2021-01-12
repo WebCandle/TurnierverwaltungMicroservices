@@ -7,5 +7,15 @@ namespace Common
     public class Spieler : Person
     {
         string Aufgabe { get; set; }
+
+        public Spieler()
+        {
+            PersonId = 0;
+            Name = string.Empty;
+            Nachname = string.Empty;
+            Geburtsdatum = DateTime.Now;
+            MannschaftId = 0;
+            Aufgabe = string.Empty;
+        }
     }
 }

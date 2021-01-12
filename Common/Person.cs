@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace Common
 {
@@ -14,7 +15,6 @@ namespace Common
         public string Nachname { get; set; }
         public DateTime Geburtsdatum { get; set; }
         public int MannschaftId { get; set; }
-        [NotMapped]
-        public IMannschaft Mannschaft { get; set; }
+
     }
 }

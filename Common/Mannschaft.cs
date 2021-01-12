@@ -6,12 +6,13 @@ using System.Text;
 
 namespace Common
 {
-    public interface IMannschaft
+    public class Mannschaft: IMannschaft
     {
         [Key]
-        int MannschaftId { get; set; }
+        public int MannschaftId { get; set; }
         [ForeignKey("PersonId")]
-        List<Person> Personen { get; set; }
-        string Name { get; set; }
+        [NotMapped]
+        public List<Person> Personen { get; set; }
+        public string Name { get; set; }
     }
 }

@@ -32,7 +32,7 @@ namespace PersonService.Controllers
         [HttpGet("{PersonId}", Name = "Get")]
         public IActionResult GetPerson(int PersonId)
         {
-            IPerson person = Db.Personen.Where(x=> x.PersonId == PersonId).First();
+            IPerson person = Db.Personen.Where(x=> x.PersonId == PersonId).FirstOrDefault();
             if(person == null)
             {
                 return NotFound();
@@ -88,7 +88,7 @@ namespace PersonService.Controllers
             }
             else
             {
-                IPerson person = Db.Personen.Where(x => x.PersonId == PersonId).First();
+                IPerson person = Db.Personen.Where(x => x.PersonId == PersonId).FirstOrDefault();
                 if(person == null)
                 {
                     return NotFound();
@@ -111,7 +111,7 @@ namespace PersonService.Controllers
             }
             else
             {
-                IPerson person = Db.Personen.Where(x => x.PersonId == PersonId).First();
+                IPerson person = Db.Personen.Where(x => x.PersonId == PersonId).FirstOrDefault();
                 if (person == null)
                 {
                     return NotFound();
@@ -129,7 +129,7 @@ namespace PersonService.Controllers
         [HttpDelete("{PersonId}")]
         public IActionResult DeletePerson(int PersonId)
         {
-            IPerson person = Db.Personen.Where(x => x.PersonId == PersonId).First();
+            IPerson person = Db.Personen.Where(x => x.PersonId == PersonId).FirstOrDefault();
             if (person == null)
             {
                 return NotFound();

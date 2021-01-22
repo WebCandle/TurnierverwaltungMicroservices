@@ -14,5 +14,11 @@ namespace Common
         [NotMapped]
         public List<IPerson> Personen { get; set; }
         public DateTime Gruendungsdatum { get; set; }
+
+        public void Asign(IMannschaft mannschaft)
+        {
+            Name = mannschaft.Name;
+            Gruendungsdatum = mannschaft.Gruendungsdatum;
+        }
     }
 }

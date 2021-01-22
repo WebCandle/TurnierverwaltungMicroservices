@@ -14,5 +14,6 @@ namespace Common
         List<IPerson> Personen { get; set; }
         string Name { get; set; }
         DateTime Gruendungsdatum { get; set; }
+        void Asign(IMannschaft mannschaft);
     }
 }

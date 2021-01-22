@@ -10,8 +10,9 @@ namespace Common
     {
         [Key]
         int MannschaftId { get; set; }
-        [ForeignKey("PersonId")]
-        List<Person> Personen { get; set; }
+        [NotMapped]
+        List<IPerson> Personen { get; set; }
         string Name { get; set; }
+        DateTime Gruendungsdatum { get; set; }
     }
 }

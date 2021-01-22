@@ -6,7 +6,7 @@ namespace Common
 {
     public class Spieler : Person
     {
-        string Aufgabe { get; set; }
+        public string Aufgabe { get; set; }
 
         public Spieler()
         {

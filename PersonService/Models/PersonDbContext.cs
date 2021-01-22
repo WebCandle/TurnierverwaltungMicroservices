@@ -11,7 +11,6 @@ namespace PersonService.Models
     public class PersonDbContext:DbContext
     {
         public DbSet<Person> Personen { get; set; }
-        public DbSet<Mannschaft> Mannschaften { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseMySQL("server=localhost;database=person_service_db;user=root;password=");

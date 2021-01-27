@@ -22,7 +22,7 @@ namespace PersonService.Controllers
         //[Authorize(Policy = "person.read")]
         //[Authorize]
         [HttpGet]
-        [Route("All/{MannschaftId}")]
+        [Route("InMannschaft/{MannschaftId}")]
         public IEnumerable<IPerson> GetAllPersonen(int MannschaftId)
         {
             return Db.Personen.Where(x=> x.MannschaftId == MannschaftId).ToList();
@@ -30,7 +30,7 @@ namespace PersonService.Controllers
 
         // GET: api/Person/{PersonId}
         [HttpGet("{PersonId}", Name = "Get")]
-        public IActionResult GetPerson(int PersonId)
+        public IActionResult GetPersonbyMannschaft(int PersonId)
         {
             IPerson person = Db.Personen.Where(x=> x.PersonId == PersonId).FirstOrDefault();
             if(person == null)
@@ -41,6 +41,12 @@ namespace PersonService.Controllers
             {
                 return Ok(person);
             }
+        }
+        // GET: api/Person
+        [HttpGet]
+        public IEnumerable<Person> GetPerson(int PersonId)
+        {
+            return Db.Personen.ToList();
         }
 
         // POST: api/Person/Spieler

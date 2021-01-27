@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Ocelot.DependencyInjection;
+using Ocelot.Middleware;
 
 namespace APIGateway
 {
@@ -19,23 +21,24 @@ namespace APIGateway
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(o =>
-            {
-                o.Authority = "https://localhost:44373";
-                o.Audience = "myresourceapi";
-                o.RequireHttpsMetadata = false;
-            });
+            //services.AddAuthentication(options =>
+            //{
+            //    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            //    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            //}).AddJwtBearer(o =>
+            //{
+            //    o.Authority = "https://localhost:44373";
+            //    o.Audience = "myresourceapi";
+            //    o.RequireHttpsMetadata = false;
+            //});
 
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("person.read", policy => policy.RequireClaim("client_id", "secret_client_id"));
-                options.AddPolicy("person.write", policy => policy.RequireClaim("client_id", "secret_client_id"));
-            });
-            services.AddControllers();
+            //services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy("person.read", policy => policy.RequireClaim("client_id", "secret_client_id"));
+            //    options.AddPolicy("person.write", policy => policy.RequireClaim("client_id", "secret_client_id"));
+            //});
+            //services.AddControllers();
+            services.AddOcelot();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,17 +49,19 @@ namespace APIGateway
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            app.UseAuthentication();
-            app.UseAuthorization();
+            //app.UseAuthentication();
+            //app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllers();
+            //});
+
+            app.UseOcelot().Wait();
         }
     }
 }

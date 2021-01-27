@@ -10,7 +10,14 @@
         }
       ],
       "UpstreamPathTemplate": "/api-person/",
-      "UpstreamHttpMethod": [ "Get"]
+      "UpstreamHttpMethod": [ "Get" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "TestKey",
+        "AllowedScopes": [ "apiscope" ]
+      },
+      "RouteClaimsRequirement": {
+        "client_UserType": "admin"
+      }
     },
     {
       "DownstreamPathTemplate": "/api/person/{PersonId}",
@@ -22,7 +29,11 @@
         }
       ],
       "UpstreamPathTemplate": "/api-person/{PersonId}",
-      "UpstreamHttpMethod": [ "Get" ]
+      "UpstreamHttpMethod": [ "Get" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "TestKey",
+        "AllowedScopes": [ "apiscope" ]
+      }
     },
     {
       "DownstreamPathTemplate": "/api/Person/InMannschaft/{MannschaftId}",
@@ -34,19 +45,11 @@
         }
       ],
       "UpstreamPathTemplate": "/api-person/InMannschaft/{MannschaftId}",
-      "UpstreamHttpMethod": [ "Get"]
-    },
-    {
-      "DownstreamPathTemplate": "/api/mannschaft/",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5003
-        }
-      ],
-      "UpstreamPathTemplate": "/api-mannschaft/",
-      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
+      "UpstreamHttpMethod": [ "Get" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "TestKey",
+        "AllowedScopes": [ "apiscope" ]
+      }
     }
   ],
   "GlobalConfiguration": {

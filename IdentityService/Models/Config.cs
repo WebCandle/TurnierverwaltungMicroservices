@@ -1,5 +1,6 @@
 ﻿using IdentityServer4.Models;
 using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace IdentityService
 {
@@ -23,13 +24,25 @@ namespace IdentityService
                 // for public api
                 new Client
                 {
-                    ClientId = "secret_client_id",
+                    ClientId = "user",
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
                     ClientSecrets =
                     {
-                        new Secret("secret".Sha256())
+                        new Secret("user".Sha256())
                     },
-                    AllowedScopes = { "apiscope" }
+                    AllowedScopes = { "apiscope" },
+                    Claims = new List<Claim> { new Claim("UserType", "user")}
+                },
+                new Client
+                {
+                    ClientId = "admin",
+                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+                    ClientSecrets =
+                    {
+                        new Secret("admin".Sha256())
+                    },
+                    AllowedScopes = { "apiscope" },
+                    Claims = new List<Claim> { (new Claim("UserType", "admin"))}
                 }
             };
         }

@@ -21,22 +21,24 @@ namespace APIGateway
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddAuthentication(options =>
-            //{
-            //    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            //    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            //}).AddJwtBearer(o =>
-            //{
-            //    o.Authority = "https://localhost:44373";
-            //    o.Audience = "myresourceapi";
-            //    o.RequireHttpsMetadata = false;
-            //});
+            var authenticationProviderKey = "TestKey";
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(authenticationProviderKey,o =>
+            {
+                o.Authority = "http://localhost:5004";
+                o.Audience = "myresourceapi";
+                o.RequireHttpsMetadata = false;
+            });
 
             //services.AddAuthorization(options =>
             //{
-            //    options.AddPolicy("person.read", policy => policy.RequireClaim("client_id", "secret_client_id"));
-            //    options.AddPolicy("person.write", policy => policy.RequireClaim("client_id", "secret_client_id"));
+            //    options.AddPolicy("person_read", policy => policy.RequireClaim("client_id", "admin"));
+            //    options.AddPolicy("person_write", policy => policy.RequireClaim("client_id", "admin"));
             //});
+            services.AddAuthorization();
             //services.AddControllers();
             services.AddOcelot();
         }
@@ -53,8 +55,8 @@ namespace APIGateway
 
             app.UseRouting();
 
-            //app.UseAuthentication();
-            //app.UseAuthorization();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             //app.UseEndpoints(endpoints =>
             //{

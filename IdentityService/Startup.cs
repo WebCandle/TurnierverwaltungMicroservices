@@ -17,14 +17,14 @@ namespace IdentityService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddIdentityServer()
- .AddDeveloperSigningCredential()
- .AddOperationalStore(options =>
- {
-     options.EnableTokenCleanup = true;
-     options.TokenCleanupInterval = 30; // interval in seconds
- })
- .AddInMemoryApiResources(Config.GetApiResources())
- .AddInMemoryClients(Config.GetClients());
+                        .AddDeveloperSigningCredential()
+                        .AddOperationalStore(options =>
+                        {
+                            options.EnableTokenCleanup = true;
+                            options.TokenCleanupInterval = 30; // interval in seconds
+                        })
+                        .AddInMemoryApiResources(Config.GetApiResources())
+                        .AddInMemoryClients(Config.GetClients());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,7 +42,7 @@ namespace IdentityService
             {
                 endpoints.MapGet("/", async context =>
                 {
-                    await context.Response.WriteAsync("Hello World!");
+                    await context.Response.WriteAsync("Identity Service");
                 });
             });
         }

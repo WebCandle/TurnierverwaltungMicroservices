@@ -16,7 +16,7 @@
         "AllowedScopes": [ "apiscope" ]
       },
       "RouteClaimsRequirement": {
-        "client_UserType": "admin"
+        "client_UserType": "user"
       }
     },
     {
@@ -33,6 +33,9 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "TestKey",
         "AllowedScopes": [ "apiscope" ]
+      },
+      "RouteClaimsRequirement": {
+        "client_UserType": "user"
       }
     },
     {
@@ -49,6 +52,9 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "TestKey",
         "AllowedScopes": [ "apiscope" ]
+      },
+      "RouteClaimsRequirement": {
+        "client_UserType": "user"
       }
     }
   ],

@@ -42,7 +42,7 @@ namespace IdentityService
                         new Secret("admin".Sha256())
                     },
                     AllowedScopes = { "apiscope" },
-                    Claims = new List<Claim> { (new Claim("UserType", "admin"))}
+                    Claims = new List<Claim> { new Claim("UserType", "user"), new Claim("UserType", "admin") }
                 }
             };
         }

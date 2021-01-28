@@ -1,4 +1,5 @@
-﻿using IdentityServer4.Models;
+﻿using IdentityModel;
+using IdentityServer4.Models;
 using System.Collections.Generic;
 using System.Security.Claims;
 
@@ -31,7 +32,7 @@ namespace IdentityService
                         new Secret("user".Sha256())
                     },
                     AllowedScopes = { "apiscope" },
-                    Claims = new List<Claim> { new Claim("UserType", "user")}
+                    Claims = new List<Claim> { new Claim(JwtClaimTypes.Role, "user")}
                 },
                 new Client
                 {
@@ -42,7 +43,7 @@ namespace IdentityService
                         new Secret("admin".Sha256())
                     },
                     AllowedScopes = { "apiscope" },
-                    Claims = new List<Claim> { new Claim("UserType", "user"), new Claim("UserType", "admin") }
+                    Claims = new List<Claim> { new Claim(JwtClaimTypes.Role, "user"), new Claim(JwtClaimTypes.Role, "admin") }
                 }
             };
         }

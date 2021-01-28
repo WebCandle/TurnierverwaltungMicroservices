@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonService", "PersonServ
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIGateway", "APIGateway\APIGateway.csproj", "{ADA170D1-DB9B-4AA5-AC88-7E5970C17288}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{9A03E18B-AE14-40BA-B923-F8565B518935}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{9A03E18B-AE14-40BA-B923-F8565B518935}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebUI", "WebUI\WebUI.csproj", "{0BBA0B21-328C-4DC4-99BD-B5CBFEEC665B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{9A03E18B-AE14-40BA-B923-F8565B518935}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A03E18B-AE14-40BA-B923-F8565B518935}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A03E18B-AE14-40BA-B923-F8565B518935}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BBA0B21-328C-4DC4-99BD-B5CBFEEC665B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BBA0B21-328C-4DC4-99BD-B5CBFEEC665B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BBA0B21-328C-4DC4-99BD-B5CBFEEC665B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BBA0B21-328C-4DC4-99BD-B5CBFEEC665B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

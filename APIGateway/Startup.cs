@@ -29,7 +29,7 @@ namespace APIGateway
             }).AddJwtBearer(authenticationProviderKey,o =>
             {
                 o.Authority = "http://localhost:5004";
-                o.Audience = "myresourceapi";
+                o.Audience = "ApiResource";
                 o.RequireHttpsMetadata = false;
             });
 

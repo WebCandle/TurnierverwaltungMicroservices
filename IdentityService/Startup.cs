@@ -7,6 +7,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using IdentityService.Models;
+using IdentityServer4.EntityFramework.DbContexts;
+using IdentityServer4.EntityFramework.Mappers;
+using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace IdentityService
 {
@@ -16,35 +21,106 @@ namespace IdentityService
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddIdentityServer()
+            //    .AddInMemoryClients(Users.GetClients())
+            //    .AddInMemoryIdentityResources(Resources.GetIdentityResources())
+            //    .AddInMemoryApiResources(Resources.GetApiResources())
+            //    .AddInMemoryApiScopes(Resources.GetApiScopes())
+            //    .AddTestUsers(Users.GetTestUsers())
+            //    .AddDeveloperSigningCredential();
+
+
+            const string connectionString = @"Data Source=pc-ma\sql2017;database=identity_service_db;trusted_connection=yes;";
+            var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
+
+            // configure identity server with in-memory stores, keys, clients and scopes
             services.AddIdentityServer()
-                        .AddDeveloperSigningCredential()
-                        .AddOperationalStore(options =>
-                        {
-                            options.EnableTokenCleanup = true;
-                            options.TokenCleanupInterval = 30; // interval in seconds
-                        })
-                        .AddInMemoryApiResources(Config.GetApiResources())
-                        .AddInMemoryClients(Config.GetClients());
+                .AddDeveloperSigningCredential()
+                //.AddTestUsers(Users.GetTestUsers())
+                //.AddInMemoryApiScopes(Resources.GetApiScopes())
+                // this adds the config data from DB (clients, resources)
+                .AddConfigurationStore(options =>
+                {
+                    options.ConfigureDbContext = b =>
+                        b.UseSqlServer(connectionString,
+                            sql => sql.MigrationsAssembly(migrationsAssembly));
+                })
+
+                // this adds the operational data from DB (codes, tokens, consents)
+                .AddOperationalStore(options =>
+                {
+                    options.ConfigureDbContext = b =>
+                        b.UseSqlServer(connectionString,
+                            sql => sql.MigrationsAssembly(migrationsAssembly));
+
+                    // this enables automatic token cleanup. this is optional.
+                    options.EnableTokenCleanup = true;
+                });
+
+            services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            InitializeDatabase(app);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseIdentityServer();
+            app.UseStaticFiles();
             app.UseRouting();
 
-            app.UseEndpoints(endpoints =>
+            app.UseIdentityServer();
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints => endpoints.MapDefaultControllerRoute());
+
+        }
+        private void InitializeDatabase(IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
-                endpoints.MapGet("/", async context =>
+                serviceScope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>().Database.Migrate();
+
+                var context = serviceScope.ServiceProvider.GetRequiredService<ConfigurationDbContext>();
+                context.Database.Migrate();
+                if (!context.Clients.Any())
                 {
-                    await context.Response.WriteAsync("Identity Service");
-                });
-            });
+                    foreach (var client in Users.GetClients())
+                    {
+                        context.Clients.Add(client.ToEntity());
+                    }
+                    context.SaveChanges();
+                }
+
+                if (!context.IdentityResources.Any())
+                {
+                    foreach (var resource in Resources.GetIdentityResources())
+                    {
+                        context.IdentityResources.Add(resource.ToEntity());
+                    }
+                    context.SaveChanges();
+                }
+
+                if (!context.ApiResources.Any())
+                {
+                    foreach (var resource in Resources.GetApiResources())
+                    {
+                        context.ApiResources.Add(resource.ToEntity());
+                    }
+                    context.SaveChanges();
+                }
+                if (!context.ApiScopes.Any())
+                {
+                    foreach (var apiScope in Resources.GetApiScopes())
+                    {
+                        context.ApiScopes.Add(apiScope.ToEntity());
+                    }
+                    context.SaveChanges();
+                }
+            }
         }
     }
 }

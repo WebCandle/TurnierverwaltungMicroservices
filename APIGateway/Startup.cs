@@ -4,8 +4,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using Common;
+using System.Text;
 
 namespace APIGateway
 {
@@ -21,24 +24,31 @@ namespace APIGateway
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var authenticationProviderKey = "TestKey";
+            var appSettingsSection = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettingsSection);
+
+            //JWT Authentication
+            var appSettings = appSettingsSection.Get<AppSettings>();
+            var Key = Encoding.ASCII.GetBytes(appSettings.Key);
+
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(authenticationProviderKey,o =>
+            }).AddJwtBearer(jwt =>
             {
-                o.Authority = "http://localhost:5004";
-                o.Audience = "ApiResource";
-                o.RequireHttpsMetadata = false;
+                jwt.RequireHttpsMetadata = false;
+                jwt.SaveToken = true;
+                jwt.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
             });
 
-            //services.AddAuthorization(options =>
-            //{
-            //    options.AddPolicy("person_read", policy => policy.RequireClaim("client_id", "admin"));
-            //    options.AddPolicy("person_write", policy => policy.RequireClaim("client_id", "admin"));
-            //});
-            services.AddAuthorization();
+            //services.AddAuthorization();
             //services.AddControllers();
             services.AddOcelot();
         }
@@ -51,17 +61,11 @@ namespace APIGateway
                 app.UseDeveloperExceptionPage();
             }
 
-            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
-
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapControllers();
-            //});
 
             app.UseOcelot().Wait();
         }

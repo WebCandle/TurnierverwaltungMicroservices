@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Common;
 
 namespace IdentityService
 {

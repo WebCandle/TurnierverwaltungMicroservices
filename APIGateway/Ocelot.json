@@ -12,8 +12,8 @@
       "UpstreamPathTemplate": "/api-person/",
       "UpstreamHttpMethod": [ "Get" ],
       "AuthenticationOptions": {
-        "AuthenticationProviderKey": "TestKey",
-        "AllowedScopes": [ "PersonApiScope.read" ]
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
       }
     },
     {
@@ -28,8 +28,8 @@
       "UpstreamPathTemplate": "/api-person/{PersonId}",
       "UpstreamHttpMethod": [ "Get" ],
       "AuthenticationOptions": {
-        "AuthenticationProviderKey": "TestKey",
-        "AllowedScopes": [ "PersonApiScope.read" ]
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
       }
     },
     {
@@ -44,8 +44,8 @@
       "UpstreamPathTemplate": "/api-person/InMannschaft/{MannschaftId}",
       "UpstreamHttpMethod": [ "Get" ],
       "AuthenticationOptions": {
-        "AuthenticationProviderKey": "TestKey",
-        "AllowedScopes": [ "PersonApiScope.read" ]
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
       }
     },
     {
@@ -60,8 +60,8 @@
       "UpstreamPathTemplate": "/api-person/{PersonId}",
       "UpstreamHttpMethod": [ "Delete" ],
       "AuthenticationOptions": {
-        "AuthenticationProviderKey": "TestKey",
-        "AllowedScopes": [ "PersonApiScope.write" ]
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
       }
     },
     {
@@ -76,8 +76,8 @@
       "UpstreamPathTemplate": "/api-person/spieler/{PersonId}",
       "UpstreamHttpMethod": [ "Put" ],
       "AuthenticationOptions": {
-        "AuthenticationProviderKey": "TestKey",
-        "AllowedScopes": [ "PersonApiScope.write" ]
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
       }
     },
     {
@@ -92,8 +92,8 @@
       "UpstreamPathTemplate": "/api-person/trainer/{PersonId}",
       "UpstreamHttpMethod": [ "Put" ],
       "AuthenticationOptions": {
-        "AuthenticationProviderKey": "TestKey",
-        "AllowedScopes": [ "PersonApiScope.write" ]
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
       }
     },
     {
@@ -108,8 +108,8 @@
       "UpstreamPathTemplate": "/api-person/spieler",
       "UpstreamHttpMethod": [ "Post" ],
       "AuthenticationOptions": {
-        "AuthenticationProviderKey": "TestKey",
-        "AllowedScopes": [ "PersonApiScope.write" ]
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
       }
     },
     {
@@ -124,8 +124,8 @@
       "UpstreamPathTemplate": "/api-person/trainer",
       "UpstreamHttpMethod": [ "Post" ],
       "AuthenticationOptions": {
-        "AuthenticationProviderKey": "TestKey",
-        "AllowedScopes": [ "PersonApiScope.write" ]
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
       }
     },
     {
@@ -140,8 +140,8 @@
       "UpstreamPathTemplate": "/api-mannschaft",
       "UpstreamHttpMethod": [ "Get" ],
       "AuthenticationOptions": {
-        "AuthenticationProviderKey": "TestKey",
-        "AllowedScopes": [ "MannschaftApiScope.read" ]
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
       }
     },
     {
@@ -156,8 +156,8 @@
       "UpstreamPathTemplate": "/api-mannschaft/{id}",
       "UpstreamHttpMethod": [ "Get" ],
       "AuthenticationOptions": {
-        "AuthenticationProviderKey": "TestKey",
-        "AllowedScopes": [ "MannschaftApiScope.read" ]
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
       }
     },
     {
@@ -172,8 +172,8 @@
       "UpstreamPathTemplate": "/api-mannschaft",
       "UpstreamHttpMethod": [ "Post" ],
       "AuthenticationOptions": {
-        "AuthenticationProviderKey": "TestKey",
-        "AllowedScopes": [ "MannschaftApiScope.write" ]
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
       }
     },
     {
@@ -188,8 +188,8 @@
       "UpstreamPathTemplate": "/api-mannschaft/{id}",
       "UpstreamHttpMethod": [ "Put" ],
       "AuthenticationOptions": {
-        "AuthenticationProviderKey": "TestKey",
-        "AllowedScopes": [ "MannschaftApiScope.write" ]
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
       }
     },
     {
@@ -204,8 +204,8 @@
       "UpstreamPathTemplate": "/api-mannschaft/{id}",
       "UpstreamHttpMethod": [ "Delete" ],
       "AuthenticationOptions": {
-        "AuthenticationProviderKey": "TestKey",
-        "AllowedScopes": [ "MannschaftApiScope.write" ]
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
       }
     }
   ],

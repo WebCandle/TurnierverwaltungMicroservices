@@ -20,7 +20,7 @@ namespace IdentityService.Controllers
             Db = new UserDbContext();
         }
         // GET: api/<UserController>
-        [Authorize]
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public IEnumerable<User> Get()
         {
@@ -28,7 +28,7 @@ namespace IdentityService.Controllers
         }
 
         // GET api/<UserController>/5
-        [Authorize]
+        [Authorize(Roles = "admin")]
         [HttpGet("{id}")]
         public User Get(int id)
         {
@@ -36,7 +36,7 @@ namespace IdentityService.Controllers
         }
 
         // POST api/<UserController>
-        [Authorize]
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public IActionResult Post([FromBody] User model)
         {
@@ -53,7 +53,7 @@ namespace IdentityService.Controllers
         }
 
         // PUT api/<UserController>/5
-        [Authorize]
+        [Authorize(Roles = "admin")]
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] User model)
         {
@@ -71,7 +71,7 @@ namespace IdentityService.Controllers
         }
 
         // DELETE api/<UserController>/5
-        [Authorize]
+        [Authorize(Roles = "admin")]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

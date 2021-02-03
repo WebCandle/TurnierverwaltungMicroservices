@@ -19,8 +19,7 @@ namespace PersonService.Controllers
         }
 
         // GET: api/Person/All/{MannschaftId}
-        //[Authorize(Policy = "person.read")]
-        //[Authorize]
+        [Authorize(Roles = "admin,user")]
         [HttpGet]
         [Route("InMannschaft/{MannschaftId}")]
         public IEnumerable<IPerson> GetAllPersonen(int MannschaftId)
@@ -29,8 +28,9 @@ namespace PersonService.Controllers
         }
 
         // GET: api/Person/{PersonId}
+        [Authorize(Roles = "admin,user")]
         [HttpGet("{PersonId}", Name = "Get")]
-        public IActionResult GetPersonbyMannschaft(int PersonId)
+        public IActionResult GetPersonbyId(int PersonId)
         {
             IPerson person = Db.Personen.Where(x=> x.PersonId == PersonId).FirstOrDefault();
             if(person == null)
@@ -43,13 +43,15 @@ namespace PersonService.Controllers
             }
         }
         // GET: api/Person
+        [Authorize(Roles = "admin,user")]
         [HttpGet]
-        public IEnumerable<Person> GetPerson(int PersonId)
+        public IEnumerable<Person> GetPerson()
         {
             return Db.Personen.ToList();
         }
 
         // POST: api/Person/Spieler
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [Route("Spieler")]
         public IActionResult AddSpieler([FromBody] Spieler spieler)
@@ -67,6 +69,7 @@ namespace PersonService.Controllers
         }
 
         // POST: api/Person/Trainer
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [Route("Trainer")]
         public IActionResult AddTrainer([FromBody] Trainer trainer)
@@ -84,6 +87,7 @@ namespace PersonService.Controllers
         }
 
         // PUT: api/Person/Spieler/5
+        [Authorize(Roles = "admin")]
         [HttpPut]
         [Route("Spieler/{PersonId}")]
         public IActionResult EditSpieler(int PersonId, [FromBody] Spieler spieler)
@@ -107,6 +111,7 @@ namespace PersonService.Controllers
                 }
             }
         }
+        [Authorize(Roles = "admin")]
         [HttpPut]
         [Route("Trainer/{PersonId}")]
         public IActionResult EditTrainer(int PersonId, [FromBody] Trainer trainer)
@@ -132,6 +137,7 @@ namespace PersonService.Controllers
         }
 
         // DELETE: api/Person/5
+        [Authorize(Roles = "admin")]
         [HttpDelete("{PersonId}")]
         public IActionResult DeletePerson(int PersonId)
         {

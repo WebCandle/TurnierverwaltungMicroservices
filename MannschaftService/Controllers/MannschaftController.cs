@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Common;
 using MannschaftService.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MannschaftService.Controllers
 {
@@ -18,6 +19,7 @@ namespace MannschaftService.Controllers
             Db = new MannschaftDbContext();
         }
         // GET: api/<MannschaftController>
+        [Authorize(Roles = "admin,user")]
         [HttpGet]
         public IEnumerable<Mannschaft> Get()
         {
@@ -25,10 +27,11 @@ namespace MannschaftService.Controllers
         }
 
         // GET api/<MannschaftController>/5
+        [Authorize(Roles = "admin,user")]
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            Mannschaft mannschaft = Db.Mannschaften.Where(x => x.MannschaftId == id).First();
+            Mannschaft mannschaft = Db.Mannschaften.Where(x => x.MannschaftId == id).FirstOrDefault();
             if(mannschaft == null)
             {
                 return NotFound();
@@ -40,6 +43,7 @@ namespace MannschaftService.Controllers
         }
 
         // POST api/<MannschaftController>
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public IActionResult Post([FromBody] Mannschaft mannschaft)
         {
@@ -56,6 +60,7 @@ namespace MannschaftService.Controllers
         }
 
         // PUT api/<MannschaftController>/5
+        [Authorize(Roles = "admin")]
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] Mannschaft neu_mannschaft)
         {
@@ -65,7 +70,7 @@ namespace MannschaftService.Controllers
             }
             else
             {
-                Mannschaft mannschaft = Db.Mannschaften.Where(x => x.MannschaftId == id).First();
+                Mannschaft mannschaft = Db.Mannschaften.Where(x => x.MannschaftId == id).FirstOrDefault();
                 if(mannschaft==null)
                 {
                     return NotFound();
@@ -80,6 +85,7 @@ namespace MannschaftService.Controllers
         }
 
         // DELETE api/<MannschaftController>/5
+        [Authorize(Roles = "admin")]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

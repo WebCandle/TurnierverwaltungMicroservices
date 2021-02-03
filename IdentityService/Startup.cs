@@ -63,16 +63,15 @@ namespace IdentityService
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Nutzerverwaltung API V1");
             });
-            app.UseRouting();
-
-            app.UseAuthentication();
-            app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

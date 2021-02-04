@@ -134,7 +134,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5002
+          "Port": 5003
         }
       ],
       "UpstreamPathTemplate": "/api-mannschaft",
@@ -150,7 +150,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5002
+          "Port": 5003
         }
       ],
       "UpstreamPathTemplate": "/api-mannschaft/{id}",
@@ -166,7 +166,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5002
+          "Port": 5003
         }
       ],
       "UpstreamPathTemplate": "/api-mannschaft",
@@ -182,7 +182,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5002
+          "Port": 5003
         }
       ],
       "UpstreamPathTemplate": "/api-mannschaft/{id}",
@@ -198,7 +198,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5002
+          "Port": 5003
         }
       ],
       "UpstreamPathTemplate": "/api-mannschaft/{id}",

@@ -15,10 +15,25 @@ namespace Common
         public List<IPerson> Personen { get; set; }
         public DateTime Gruendungsdatum { get; set; }
 
+        public Mannschaft()
+        {
+            MannschaftId = 0;
+            Name = string.Empty;
+            Personen = null;
+            Gruendungsdatum = DateTime.Now;
+        }
+
+        public Mannschaft(string name, DateTime gruendungsdatum)
+        {
+            Name = name;
+            Gruendungsdatum = gruendungsdatum;
+        }
+
         public void Asign(IMannschaft mannschaft)
         {
             Name = mannschaft.Name;
             Gruendungsdatum = mannschaft.Gruendungsdatum;
         }
+
     }
 }

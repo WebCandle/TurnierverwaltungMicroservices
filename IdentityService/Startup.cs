@@ -49,7 +49,8 @@ namespace IdentityService
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Key),
                     ValidateIssuer = false,
-                    ValidateAudience = false
+                    ValidateAudience = false,
+                    ClockSkew = TimeSpan.FromDays(3)
                 };
             });
             services.AddScoped<IAuthenticateService, AuthenticateService>();

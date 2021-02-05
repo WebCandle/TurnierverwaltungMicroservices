@@ -18,6 +18,14 @@ namespace Common
             Gehalt = 0;
         }
 
+        public Trainer(string name, string nachname, DateTime dateTime, int mannschaftId, decimal gehalt)
+        {
+            Name = name;
+            Nachname = nachname;
+            Geburtsdatum = dateTime;
+            MannschaftId = mannschaftId;
+            Gehalt = gehalt;
+        }
         public override void Asign(IPerson person)
         {
             base.Asign(person);

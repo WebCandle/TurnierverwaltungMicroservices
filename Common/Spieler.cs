@@ -18,6 +18,15 @@ namespace Common
             Aufgabe = string.Empty;
         }
 
+        public Spieler(string name, string nachname,DateTime dateTime, int mannschaftId, string aufgabe)
+        {
+            Name = name;
+            Nachname = nachname;
+            Geburtsdatum = dateTime;
+            MannschaftId = mannschaftId;
+            Aufgabe = aufgabe;
+        }
+
         public override void Asign(IPerson person)
         {
             base.Asign(person);

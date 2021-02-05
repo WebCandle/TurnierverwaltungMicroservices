@@ -42,15 +42,15 @@ namespace WebUI.Controllers
         // GET: PersonController
         public ActionResult Index(int mannschaftId = -1)
         {
-            if(mannschaftId == -1 )
+            ViewData["mannschaftId"] = mannschaftId;
+            if (mannschaftId == -1 )
             {
-                return View(Personen);
+                return RedirectToAction("Index","Mannschaft");
             }
             else
             {
-                return View(Personen.Where(x => x.MannschaftId == mannschaftId));
+                return View(Personen.Where(x => x.MannschaftId == mannschaftId).ToList());
             }
-            
         }
 
         // GET: PersonController/Details/5
@@ -59,23 +59,71 @@ namespace WebUI.Controllers
             return View();
         }
 
-        // GET: PersonController/Create
-        public ActionResult Create()
+        // GET: PersonController/CreateSpieler
+        public ActionResult CreateSpieler(int mannschaftId)
         {
+            ViewData["mannschaftId"] = mannschaftId;
             return View();
         }
 
-        // POST: PersonController/Create
+        // GET: PersonController/CreateSpieler
+        public ActionResult CreateTrainer(int mannschaftId)
+        {
+            ViewData["mannschaftId"] = mannschaftId;
+            return View();
+        }
+
+        // POST: PersonController/CreateSpieler
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult CreateSpieler(IFormCollection collection)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
             }
             catch
             {
+            }
+            return RedirectToAction(nameof(Index), collection["mannschaftId"]);
+        }
+
+        // POST: PersonController/CreateTrainer
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateTrainer(IFormCollection collection)
+        {
+            try
+            {
+                Trainer trainer = new Trainer(collection["Name"], collection["Nachname"], Convert.ToDateTime(collection["Geburtsdatum"]), Convert.ToInt32(collection["MannschaftId"]), Convert.ToDecimal(collection["Gehalt"]));
+                string URL = Startup.APIGatewayHost + "api-person/trainer";
+                var request = (HttpWebRequest)WebRequest.Create(URL);
+                request.ContentType = "application/json";
+                request.Method = "POST";
+                request.Headers["Authorization"] = "Bearer " + httpContextAccessor.HttpContext.User.FindFirst("token").Value;
+                using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+                {
+                    string json = JsonConvert.SerializeObject(trainer);
+                    streamWriter.Write(json);
+                }
+
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                using (var streamReader = new StreamReader(response.GetResponseStream()))
+                {
+                    var result = streamReader.ReadToEnd();
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        return RedirectToAction(nameof(Index), new { mannschaftId = collection["mannschaftId"] });
+                    }
+                    else
+                    {
+                        ViewData["status"] = response.StatusDescription;
+                        return View();
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                ViewData["status"] =ex.Message;
                 return View();
             }
         }
@@ -104,7 +152,8 @@ namespace WebUI.Controllers
         // GET: PersonController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            Person person = Personen.Where(x => x.PersonId == id).FirstOrDefault();
+            return View(person);
         }
 
         // POST: PersonController/Delete/5
@@ -112,13 +161,34 @@ namespace WebUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
         {
+            Person person = Personen.Where(x => x.PersonId == id).FirstOrDefault();
             try
             {
-                return RedirectToAction(nameof(Index));
+                string URL = Startup.APIGatewayHost + "api-person/delete/" + id.ToString();
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
+                request.ContentType = "application/json; charset=utf-8";
+                request.Method = "DELETE";
+                request.Headers["Authorization"] = "Bearer " + httpContextAccessor.HttpContext.User.FindFirst("token").Value;
+                HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+                using (Stream responseStream = response.GetResponseStream())
+                {
+                    StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
+                    string state = reader.ReadToEnd();
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        return RedirectToAction(nameof(Index), new { mannschaftId = person.MannschaftId });
+                    }
+                    else
+                    {
+                        ViewData["status"] = response.StatusDescription;
+                        return View();
+                    }
+                }
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                ViewData["status"] = ex.Message;
+                return View(person);
             }
         }
     }

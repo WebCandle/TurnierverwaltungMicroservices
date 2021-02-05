@@ -38,8 +38,8 @@
                 @Html.DisplayFor(modelItem => item.Gruendungsdatum)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new {  id=item.MannschaftId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.MannschaftId }) |
+                @Html.ActionLink("Peronen", "Index", "Person", new { mannschaftId = item.MannschaftId }) |
+                @Html.ActionLink("Edit", "Edit", new { id = item.MannschaftId }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.MannschaftId })
             </td>
         </tr>

@@ -22,9 +22,9 @@ namespace PersonService.Controllers
         [Authorize(Roles = "admin,user")]
         [HttpGet]
         [Route("InMannschaft/{MannschaftId}")]
-        public IEnumerable<IPerson> GetAllPersonen(int MannschaftId)
+        public IEnumerable<object> GetPersonenByMannschaftId(int MannschaftId)
         {
-            return Db.Personen.Where(x=> x.MannschaftId == MannschaftId).ToList();
+            return getList(Db.Personen.Where(x=> x.MannschaftId == MannschaftId).ToList());
         }
 
         // GET: api/Person/{PersonId}
@@ -39,17 +39,40 @@ namespace PersonService.Controllers
             }
             else
             {
+                if(person is Spieler)
+                {
+                    person = person as Spieler;
+                }
+                else if(person is Trainer)
+                {
+                    person = person as Trainer;
+                }
                 return Ok(person);
             }
         }
         // GET: api/Person
         [Authorize(Roles = "admin,user")]
         [HttpGet]
-        public IEnumerable<Person> GetPerson()
+        public IEnumerable<object> GetAllPerson()
         {
-            return Db.Personen.ToList();
+            return getList(Db.Personen.ToList());
         }
-
+        private IEnumerable<object> getList(List<Person> personen)
+        {
+            var lst = new List<object>();
+            foreach (var item in personen)
+            {
+                if (item is Spieler)
+                {
+                    lst.Add(item as Spieler);
+                }
+                else if (item is Trainer)
+                {
+                    lst.Add(item as Trainer);
+                }
+            }
+            return lst;
+        }
         // POST: api/Person/Spieler
         [Authorize(Roles = "admin")]
         [HttpPost]

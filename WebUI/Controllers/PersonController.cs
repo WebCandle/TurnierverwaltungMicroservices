@@ -53,12 +53,6 @@ namespace WebUI.Controllers
             }
         }
 
-        // GET: PersonController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
         // GET: PersonController/CreateSpieler
         public ActionResult CreateSpieler(int mannschaftId)
         {
@@ -80,11 +74,38 @@ namespace WebUI.Controllers
         {
             try
             {
+                Spieler spieler = new Spieler(collection["Name"], collection["Nachname"], Convert.ToDateTime(collection["Geburtsdatum"]), Convert.ToInt32(collection["MannschaftId"]), collection["Aufgabe"]);
+                string URL = Startup.APIGatewayHost + "api-person/spieler";
+                var request = (HttpWebRequest)WebRequest.Create(URL);
+                request.ContentType = "application/json";
+                request.Method = "POST";
+                request.Headers["Authorization"] = "Bearer " + httpContextAccessor.HttpContext.User.FindFirst("token").Value;
+                using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+                {
+                    string json = JsonConvert.SerializeObject(spieler);
+                    streamWriter.Write(json);
+                }
+
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                using (var streamReader = new StreamReader(response.GetResponseStream()))
+                {
+                    var result = streamReader.ReadToEnd();
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        return RedirectToAction(nameof(Index), new { mannschaftId = collection["mannschaftId"] });
+                    }
+                    else
+                    {
+                        ViewData["status"] = response.StatusDescription;
+                        return View();
+                    }
+                }
             }
-            catch
+            catch (Exception ex)
             {
+                ViewData["status"] = ex.Message;
+                return View();
             }
-            return RedirectToAction(nameof(Index), collection["mannschaftId"]);
         }
 
         // POST: PersonController/CreateTrainer
@@ -128,23 +149,102 @@ namespace WebUI.Controllers
             }
         }
 
-        // GET: PersonController/Edit/5
-        public ActionResult Edit(int id)
+        // GET: PersonController/EditSpieler/5
+        public ActionResult EditSpieler(int id)
         {
-            return View();
+            Spieler spieler = Personen.Where(x => x.PersonId == id).FirstOrDefault() as Spieler;
+            ViewData["mannschaftId"] = spieler.MannschaftId.ToString();
+            return View(spieler);
         }
 
-        // POST: PersonController/Edit/5
+        // POST: PersonController/EditSpieler/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult EditSpieler(int id, IFormCollection collection)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                Spieler spieler = new Spieler(collection["Name"], collection["Nachname"], Convert.ToDateTime(collection["Geburtsdatum"]), Convert.ToInt32(collection["MannschaftId"]), collection["Aufgabe"]);
+                spieler.PersonId = id;
+                string URL = Startup.APIGatewayHost + "api-person/spieler/"+id.ToString();
+                var request = (HttpWebRequest)WebRequest.Create(URL);
+                request.ContentType = "application/json";
+                request.Method = "PUT";
+                request.Headers["Authorization"] = "Bearer " + httpContextAccessor.HttpContext.User.FindFirst("token").Value;
+                using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+                {
+                    string json = JsonConvert.SerializeObject(spieler);
+                    streamWriter.Write(json);
+                }
+
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                using (var streamReader = new StreamReader(response.GetResponseStream()))
+                {
+                    var result = streamReader.ReadToEnd();
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        return RedirectToAction(nameof(Index), new { mannschaftId = collection["mannschaftId"] });
+                    }
+                    else
+                    {
+                        ViewData["status"] = response.StatusDescription;
+                        return View();
+                    }
+                }
             }
-            catch
+            catch (Exception ex)
             {
+                ViewData["status"] = ex.Message;
+                return View();
+            }
+        }
+
+        // GET: PersonController/EditTrainer/5
+        public ActionResult EditTrainer(int id)
+        {
+            Trainer trainer = Personen.Where(x => x.PersonId == id).FirstOrDefault() as Trainer;
+            ViewData["mannschaftId"] = trainer.MannschaftId.ToString();
+            return View(trainer);
+        }
+
+        // POST: PersonController/EditTrainer/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditTrainer(int id, IFormCollection collection)
+        {
+            try
+            {
+                Trainer trainer = new Trainer(collection["Name"], collection["Nachname"], Convert.ToDateTime(collection["Geburtsdatum"]), Convert.ToInt32(collection["MannschaftId"]), Convert.ToDecimal(collection["Gehalt"]));
+                trainer.PersonId = id;
+                string URL = Startup.APIGatewayHost + "api-person/trainer/" + id.ToString();
+                var request = (HttpWebRequest)WebRequest.Create(URL);
+                request.ContentType = "application/json";
+                request.Method = "PUT";
+                request.Headers["Authorization"] = "Bearer " + httpContextAccessor.HttpContext.User.FindFirst("token").Value;
+                using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+                {
+                    string json = JsonConvert.SerializeObject(trainer);
+                    streamWriter.Write(json);
+                }
+
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                using (var streamReader = new StreamReader(response.GetResponseStream()))
+                {
+                    var result = streamReader.ReadToEnd();
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        return RedirectToAction(nameof(Index), new { mannschaftId = collection["mannschaftId"] });
+                    }
+                    else
+                    {
+                        ViewData["status"] = response.StatusDescription;
+                        return View();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewData["status"] = ex.Message;
                 return View();
             }
         }
@@ -153,6 +253,7 @@ namespace WebUI.Controllers
         public ActionResult Delete(int id)
         {
             Person person = Personen.Where(x => x.PersonId == id).FirstOrDefault();
+            ViewData["mannschaftId"] = person.MannschaftId.ToString();
             return View(person);
         }
 
@@ -162,6 +263,7 @@ namespace WebUI.Controllers
         public ActionResult Delete(int id, IFormCollection collection)
         {
             Person person = Personen.Where(x => x.PersonId == id).FirstOrDefault();
+            ViewData["mannschaftId"] = person.MannschaftId.ToString();
             try
             {
                 string URL = Startup.APIGatewayHost + "api-person/delete/" + id.ToString();
@@ -181,7 +283,7 @@ namespace WebUI.Controllers
                     else
                     {
                         ViewData["status"] = response.StatusDescription;
-                        return View();
+                        return View(person);
                     }
                 }
             }

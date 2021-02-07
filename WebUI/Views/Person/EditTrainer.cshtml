@@ -1,18 +1,18 @@
-﻿@model Common.Spieler
+﻿@model Common.Trainer
 
 @{
-    ViewData["Title"] = "CreateSpieler";
+    ViewData["Title"] = "EditTrainer";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>CreateSpieler</h1>
+<h1>EditTrainer</h1>
 
-<h4>Spieler</h4>
+<h4>Trainer</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <div class="text-warning">@ViewData["status"]</div>
-        <form asp-action="CreateSpieler">
+        <form asp-action="EditTrainer">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -30,17 +30,17 @@
                 <span asp-validation-for="Geburtsdatum" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Aufgabe" class="control-label"></label>
-                <input asp-for="Aufgabe" class="form-control" />
-                <span asp-validation-for="Aufgabe" class="text-danger"></span>
+                <label asp-for="Gehalt" class="control-label"></label>
+                <input asp-for="Gehalt" class="form-control" />
+                <span asp-validation-for="Gehalt" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="MannschaftId" class="control-label"></label>
-                <input asp-for="MannschaftId" class="form-control" value="@ViewData["mannschaftId"]" />
+                <input asp-for="MannschaftId" class="form-control" />
                 <span asp-validation-for="MannschaftId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>

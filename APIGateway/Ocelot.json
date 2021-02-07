@@ -57,7 +57,7 @@
           "Port": 5002
         }
       ],
-      "UpstreamPathTemplate": "/api-person/{PersonId}",
+      "UpstreamPathTemplate": "/api-person/delete/{PersonId}",
       "UpstreamHttpMethod": [ "Delete" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",

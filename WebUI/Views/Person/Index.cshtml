@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<Common.IPerson>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Personen";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>@ViewData["Title"]</h1>
 
 <p>
     <a asp-action="CreateTrainer" asp-route-mannschaftId="@ViewData["mannschaftId"]">Create New Trainer</a><br />
@@ -15,7 +15,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.PersonId)
+                Type
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
@@ -27,16 +27,25 @@
                 @Html.DisplayNameFor(model => model.Geburtsdatum)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MannschaftId)
+                Aufgabe
             </th>
-            <th></th>
+            <th>
+                Gehalt
+            </th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.PersonId)
+                @if (item is Common.Spieler)
+                {
+                    <span>Spieler</span>
+                }
+                else if (item is Common.Trainer)
+                {
+                    <span>Trainer</span>
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
@@ -48,12 +57,20 @@
                 @Html.DisplayFor(modelItem => item.Geburtsdatum)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MannschaftId)
+                @if (item is Common.Spieler) { @Html.DisplayFor(modelItem => (item as Common.Spieler).Aufgabe) }
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new {  id=item.PersonId  }) |
-                @Html.ActionLink("Details", "Details", new { id = item.PersonId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.PersonId })
+                @if (item is Common.Trainer) { @Html.DisplayFor(modelItem => (item as Common.Trainer).Gehalt) }
+            </td>
+            <td>
+                @if (item is Common.Spieler)
+                {
+                    @Html.ActionLink("Edit", "EditSpieler", new { id = item.PersonId, mannschaftId = ViewData["mannschaftId"] })
+                }
+                else if (item is Common.Trainer)
+                {
+                    @Html.ActionLink("Edit", "EditTrainer", new { id = item.PersonId, mannschaftId = ViewData["mannschaftId"] })
+                }  | @Html.ActionLink("Delete", "Delete", new { id = item.PersonId })
             </td>
         </tr>
 }

@@ -31,5 +31,9 @@ namespace Common
             base.Asign(person);
             Gehalt = (person as Trainer).Gehalt;
         }
+        public decimal getGehalt()
+        {
+            return Gehalt;
+        }
     }
 }

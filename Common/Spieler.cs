@@ -32,5 +32,10 @@ namespace Common
             base.Asign(person);
             Aufgabe = (person as Spieler).Aufgabe;
         }
+
+        public string getAufgabe()
+        {
+            return Aufgabe;
+        }
     }
 }

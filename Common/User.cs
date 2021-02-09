@@ -16,6 +16,17 @@ namespace Common
         [NotMapped]
         public string Token { get; set; }
 
+        public User()
+        {
+            UserId = 0; UserName = string.Empty;Password = string.Empty; Role = string.Empty; Token = string.Empty;
+        }
+        public User(string userName, string password, string role)
+        {
+            UserName = userName;
+            Password = password;
+            Role = role;
+        }
+
         public void Asign(User user)
         {
             Password = user.Password;

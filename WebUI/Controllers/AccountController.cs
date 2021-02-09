@@ -7,6 +7,7 @@ using Common;
 using System.Net;
 using System.IO;
 using Newtonsoft.Json;
+using System;
 
 namespace WebUI.Controllers
 {
@@ -51,9 +52,10 @@ namespace WebUI.Controllers
                     }
                 }
             }
-            catch
+            catch(Exception ex)
             {
                 user = null;
+                ViewData["status"] = ex.Message;
                 return false;
             }
         }

@@ -22,10 +22,13 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Mannschaft" asp-action="Index">Mannschaften</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Mannschaft" asp-action="Index">Mannschaftverwaltung</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Person" asp-action="Index">Personen</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Person" asp-action="Index">Personverwaltung</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Nutzerverwaltung</a>
                         </li>
                         <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="MyClaims">Security Claims</a></li>
                         @if (User.Identity.IsAuthenticated)

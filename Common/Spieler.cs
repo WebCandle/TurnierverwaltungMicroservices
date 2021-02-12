@@ -1,6 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿#region Dateikopf
+// Autor:       Maher Al Abbasi       
+// Datum:      08.02.2021
+#endregion
+
+using System;
 
 namespace Common
 {

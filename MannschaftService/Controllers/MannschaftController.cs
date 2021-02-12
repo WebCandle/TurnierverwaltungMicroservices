@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
+﻿#region Dateikopf
+// Autor:       Maher Al Abbasi       
+// Datum:      03.02.2021
+#endregion
+
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Common;
 using MannschaftService.Models;
 using Microsoft.AspNetCore.Authorization;

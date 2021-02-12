@@ -1,3 +1,8 @@
+#region Dateikopf
+// Autor:       Maher Al Abbasi       
+// Datum:      02.02.2021
+#endregion
+
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

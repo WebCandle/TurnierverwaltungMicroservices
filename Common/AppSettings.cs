@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿#region Dateikopf
+// Autor:       Maher Al Abbasi       
+// Datum:      02.02.2021
+#endregion
 
 namespace Common
 {

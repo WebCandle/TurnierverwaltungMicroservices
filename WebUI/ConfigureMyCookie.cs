@@ -1,4 +1,9 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
+﻿#region Dateikopf
+// Autor:       Maher Al Abbasi       
+// Datum:      09.02.2021
+#endregion
+
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.Options;
 
 namespace WebUI

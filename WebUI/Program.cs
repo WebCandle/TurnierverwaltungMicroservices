@@ -1,11 +1,10 @@
+#region Dateikopf
+// Autor:       Maher Al Abbasi       
+// Datum:      04.02.2021
+#endregion
+
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebUI
 {

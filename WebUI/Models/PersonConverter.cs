@@ -1,7 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿#region Dateikopf
+// Autor:       Maher Al Abbasi       
+// Datum:      05.02.2021
+#endregion
+
+using System;
 using Common;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;

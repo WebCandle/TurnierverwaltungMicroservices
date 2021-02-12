@@ -1,8 +1,12 @@
-﻿using System;
+﻿#region Dateikopf
+// Autor:       Maher Al Abbasi       
+// Datum:      27.01.2021
+#endregion
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace Common
 {

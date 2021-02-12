@@ -1,10 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿#region Dateikopf
+// Autor:       Maher Al Abbasi       
+// Datum:      02.02.2021
+#endregion
+
+using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 using Common;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;

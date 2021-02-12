@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿#region Dateikopf
+// Autor:       Maher Al Abbasi       
+// Datum:      02.02.2021
+#endregion
+
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Common;
 
 namespace IdentityService.Controllers

@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿#region Dateikopf
+// Autor:       Maher Al Abbasi       
+// Datum:      27.01.2021
+#endregion
+
+using Microsoft.EntityFrameworkCore;
 using Common;
 
 namespace MannschaftService.Models
